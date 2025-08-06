@@ -11,6 +11,6 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - ls -l output
+      - ls /output
       - echo Copying files to output directory 
-      - cp -r * output/ s3://diyaorliya/liya/index.html 
+      - cp -r * output/ s3://diyaorliya/liya/
