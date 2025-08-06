@@ -6,7 +6,7 @@ phases:
   pre_build:
     commands:
       - echo Pre-build phase started
-      - madir -p output
+      - mkdir -p output
       - aws s3 cp s3://diyaorliya/diya/index.html /output/index.html
   build:
     commands:
