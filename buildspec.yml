@@ -1,0 +1,16 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      - echo Installing dependencies...
+  pre_build:
+    commands:
+      - echo Pre-build phase started
+      - madir -p output
+      - aws s3 cp s3://diyaorliya/diya/index.html /output/index.html
+  build:
+    commands:
+      - echo Build started on `date`
+      - ls -l output
+      - echo Copying files to output directory 
+      - cp -r * output/ s3://diyaorliya/liya/index.html 
