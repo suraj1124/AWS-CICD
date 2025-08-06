@@ -1,16 +1,22 @@
 version: 0.2
-phases:
+
+phase:
   install:
-    commands:
-      - echo Installing dependencies...
-  pre_build:
-    commands:
-      - echo Pre-build phase started
-      - mkdir -p output
-      - aws s3 cp s3://diyaorliya/diya/index.html /output/index.html
+      commands:
+        - echo installing NGINX
+        - sudo apt-get update
+        - sudo apt-get install nginx -y
   build:
     commands:
-      - echo Build started on `date`
-      - ls /output
-      - echo Copying files to output directory 
-      - aws s3 cp /output/index.html s3://diyaorliya/liya/ 
+      - echo build started on "date"
+      - cp v_1.1/index.html /var/www/html
+      - ls /var/www/html
+      - echo Copying files to S3 bucket
+      - aws s3 cp /var/www/html/index.html s3://diyaorliya/liya/ 
+  post_build:
+    commands:
+      - echo configuring NGINX
+
+artifacts:
+  files:
+    - /var/www/html/index.html
