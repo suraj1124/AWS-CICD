@@ -13,4 +13,4 @@ phases:
       - echo Build started on `date`
       - ls /output
       - echo Copying files to output directory 
-      - aws s3 cp output/index.html s3://diyaorliya/liya/ --recursive
+      - aws s3 cp /output/index.html s3://diyaorliya/liya/ --recursive
