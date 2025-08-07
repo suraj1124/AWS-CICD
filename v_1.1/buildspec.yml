@@ -7,15 +7,15 @@ phases:
     commands:
       - echo Pre-build phase started
       - echo coppy index.html from github to output directory
-      - mkdir -p output
-      - ls -ld /output
-      - cp /v_1.1/index.html output/index.html
+      - mkdir output
+      -   ls -ld outpot/
+      - cp v_1.1/index.html output/
       - echo verryfy index.html file exists in output directory
-      - ls /output
+      - ls outpot/
   build:
     commands:
       - echo Build started on `date`
       - echo verryfy index.html file exists in output directory before build
-      - ls /output
+      - ls output/
       - echo Copying files to S3 bucket
-      - aws s3 cp /output/index.html s3://diyaorliya/liya/ 
+      - aws s3 cp output/index.html s3://diyaorliya/liya/ 
