@@ -8,7 +8,7 @@ phases:
       - echo Pre-build phase started
       - echo coppy index.html from github to output directory
       - mkdir output
-      - ls -ld outpot/
+      -   ls -ld outpot/
       - cp v_1.1/index.html output/
       - echo verryfy index.html file exists in output directory
       - ls outpot/
@@ -17,10 +17,5 @@ phases:
       - echo Build started on `date`
       - echo verryfy index.html file exists in output directory before build
       - ls output/
-      - echo check if files exist to S3 bucket
-      - aws s3 ls s3://diyaorliya/liya/ --recursive
       - echo Copying files to S3 bucket
       - aws s3 cp output/index.html s3://diyaorliya/liya/ 
-      
-      - echo After push to S3 check if files exist in S3 bucket after copy
-      - aws s3 ls s3://diyaorliya/liya/ --recursive
