@@ -15,7 +15,7 @@ phases:
     commands:
       - echo Pre-build phase started
       - echo Copy index.html from GitHub to Nginx default directory
-      - sudo cp v_1.1/index.html /var/www/html/
+      - sudo cp v_1.2_CodeDeploy/index.html /var/www/html/
       - echo Verify index.html file exists in Nginx directory
       - ls /var/www/html/
 
