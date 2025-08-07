@@ -8,7 +8,7 @@ phases:
       - echo Pre-build phase started
       - echo coppy index.html from github to output directory
       - mkdir -p output
-      - cp -r v_1.1/index.html output/index.html
+      - cp v_1.1/index.html output/index.html
       - echo verryfy index.html file exists in output directory
       - ls /output
   build:
