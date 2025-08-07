@@ -4,7 +4,30 @@ phases:
   install:
     commands:
       - echo Installing dependencies...
+
+      # Step 1: Configure Google Chrome repo
+      - echo Adding Google Chrome repo...
+      - sudo tee /etc/yum.repos.d/google-chrome.repo > /dev/null <<EOF
+        [google-chrome]
+        name=google-chrome
+        baseurl=http://dl.google.com/linux/chrome/rpm/stable/x86_64
+        enabled=1
+        gpgcheck=1
+        gpgkey=https://dl.google.com/linux/linux_signing_key.pub
+        EOF
+
+      # Step 2: Import GPG key
+      - echo Importing GPG key...
+      - wget https://dl.google.com/linux/linux_signing_key.pub
+      - sudo rpm --import linux_signing_key.pub
+
+      # Step 3: Now it's safe to update
+      - echo Updating system packages...
       - sudo yum update -y
+
+      # Step 4: Install Chrome
+      - echo Installing Google Chrome...
+      - sudo yum install -y google-chrome-stable
       - sudo yum install -y nginx zip
       - echo Checking if Nginx is installed...
       - nginx -v || echo "Nginx not found!"
