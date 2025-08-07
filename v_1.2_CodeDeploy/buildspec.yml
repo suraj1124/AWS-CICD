@@ -1,0 +1,41 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Installing dependencies...
+      - sudo apt-get update
+      - sudo apt-get install -y nginx zip
+      - echo Checking if Nginx is installed...
+      - nginx -v || echo "Nginx not found!"
+      - echo Checking if Nginx service is running...
+      - sudo systemctl status nginx || echo "Nginx service not running!"
+
+  pre_build:
+    commands:
+      - echo Pre-build phase started
+      - echo Copy index.html from GitHub to Nginx default directory
+      - sudo cp v_1.1/index.html /var/www/html/
+      - echo Verify index.html file exists in Nginx directory
+      - ls /var/www/html/
+
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Creating zip artifact from Nginx directory
+      - sudo zip -r artifact.zip /var/www/html/
+      - echo Uploading artifact to S3 bucket
+      - aws s3 cp artifact.zip s3://diyaorliya/liya/artifact.zip
+      - echo Verifying upload
+      - aws s3 ls s3://diyaorliya/liya/ --recursive
+
+  post_build:
+    commands:
+      - echo Restarting Nginx to apply changes...
+      - sudo systemctl restart nginx
+      - echo Checking Nginx health...
+      - curl -I http://localhost || echo "Nginx health check failed"
+
+artifacts:
+  files:
+    - artifact.zip
